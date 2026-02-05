@@ -1,6 +1,6 @@
 # SD2 SLUS Move Editor
 
-<img src="https://github.com/user-attachments/assets/REPLACE_WITH_SCREENSHOT" alt="SD2 SLUS Move Editor Screenshot" width="800"/>
+<img src="https://github.com/user-attachments/assets/73fb6a06-861b-4c72-9057-f53dece79cb5" alt="SD2 SLUS Move Editor Screenshot" width="800"/>
 
 A small open-source ImGui-based desktop tool for viewing and editing move data stored inside the `SLUS_012.34` executable used by the NTSC version of *WWF SmackDown! 2: Know Your Role*.
 
