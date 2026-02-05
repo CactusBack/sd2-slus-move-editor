@@ -1,0 +1,7 @@
+<Solution>
+  <Configurations>
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Project Path="sd2-slus-move-editor.vcxproj" Id="5c836265-b76b-4d79-af23-1296ed30a979" />
+</Solution>
