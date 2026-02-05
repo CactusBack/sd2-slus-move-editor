@@ -7,7 +7,7 @@
 
 void DrawMoveTable(MoveTableContext context, const WazaFile& waza)
 {
-    if (ImGui::BeginTable("Move Table", 13, ImGuiTableFlags_ScrollY | ImGuiTableFlags_RowBg))
+    if (ImGui::BeginTable("Move Table", 13, ImGuiTableFlags_ScrollX | ImGuiTableFlags_ScrollY | ImGuiTableFlags_RowBg))
     {
         // Table header
         ImGui::TableSetupColumn("Hex", ImGuiTableColumnFlags_WidthFixed, 410.0f);
