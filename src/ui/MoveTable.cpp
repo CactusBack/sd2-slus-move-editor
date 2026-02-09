@@ -7,20 +7,21 @@
 
 void DrawMoveTable(MoveTableContext context, const WazaFile& waza)
 {
-    if (ImGui::BeginTable("Move Table", 13, ImGuiTableFlags_ScrollX | ImGuiTableFlags_ScrollY | ImGuiTableFlags_RowBg))
+    if (ImGui::BeginTable("Move Table", 13, ImGuiTableFlags_ScrollX | ImGuiTableFlags_ScrollY | 
+                                            ImGuiTableFlags_Resizable | ImGuiTableFlags_RowBg))
     {
         // Table header
         ImGui::TableSetupColumn("Hex", ImGuiTableColumnFlags_WidthFixed, 410.0f);
         ImGui::TableSetupColumn("ID", ImGuiTableColumnFlags_WidthFixed, 55.0f);
         ImGui::TableSetupColumn("Type", ImGuiTableColumnFlags_WidthFixed, 250.0f);
         ImGui::TableSetupColumn("Category", ImGuiTableColumnFlags_WidthFixed, 205.0f);
-        ImGui::TableSetupColumn("Name", ImGuiTableColumnFlags_WidthFixed, 290.0f);
+        ImGui::TableSetupColumn("Name", ImGuiTableColumnFlags_WidthFixed, 280.0f);
         ImGui::TableSetupColumn("Impact", ImGuiTableColumnFlags_WidthFixed, 75.0f);
         ImGui::TableSetupColumn("Head", ImGuiTableColumnFlags_WidthFixed, 60.0f);
         ImGui::TableSetupColumn("Torso", ImGuiTableColumnFlags_WidthFixed, 70.0f);
         ImGui::TableSetupColumn("Arms", ImGuiTableColumnFlags_WidthFixed, 60.0f);
         ImGui::TableSetupColumn("Legs", ImGuiTableColumnFlags_WidthFixed, 70.0f);
-        ImGui::TableSetupColumn("Total", ImGuiTableColumnFlags_WidthFixed, 70.0f);
+        ImGui::TableSetupColumn("Total", ImGuiTableColumnFlags_WidthFixed, 67.5f);
         ImGui::TableSetupColumn("##Add", ImGuiTableColumnFlags_WidthFixed, 65.0f);
         ImGui::TableSetupColumn("##Delete", ImGuiTableColumnFlags_WidthFixed, 100.0f);
 
