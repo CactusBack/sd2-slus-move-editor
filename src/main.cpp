@@ -1,5 +1,5 @@
-#include "ui/AppState.h"
 #include "ui/MainWindow.h"
+#include "ui/UI.h"
 #include "data/MoveEntry.h"
 #include "renderer/Renderer.h"
 #include "data/SlusFile.h"
@@ -9,19 +9,23 @@
 
 int main()
 {
-    // Setup renderer
+    // Init renderer
     GLFWwindow* window = InitRenderer();
     if (!window)
         return -1;
 
-    // Init app state
-    AppState appState{ true, true};
+    // Init UI
+    UIState uiState{};
+    InitUI(uiState);
+
+    // Load font
+    UpdateFont(uiState);
 
     // Load move data from SLUS
     SlusFile slus{ .filePath = "SLUS_012.34" };
     std::vector<MoveEntry> moveEntriesOld;
     std::vector<MoveEntry> moveEntriesNew;
-    appState.tabNew = LoadSlus(slus, moveEntriesOld, moveEntriesNew);
+    uiState.tabNew = LoadSlus(slus, moveEntriesOld, moveEntriesNew);
 
     // Parse move names from WAZA
     WazaFile waza{ .filePath = "WAZA.dat" };
@@ -32,9 +36,11 @@ int main()
     {
         glfwWaitEvents();
 
+        UpdateFont(uiState);
+
         BeginFrame();
 
-        DrawMainWindow(window, appState, slus, waza, moveEntriesOld, moveEntriesNew);
+        DrawMainWindow(window, uiState, slus, waza, moveEntriesOld, moveEntriesNew);
 
         EndFrame(window);
     }

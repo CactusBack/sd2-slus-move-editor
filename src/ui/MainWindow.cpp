@@ -1,12 +1,15 @@
 #include "data/BinaryUtils.h"
+#include "renderer/Renderer.h"
 #include "ui/MainWindow.h"
 #include "ui/MoveTable.h"
 
 #include <imgui.h>
 
+#include <algorithm>
+
 void DrawMainWindow(
     GLFWwindow* window,
-    AppState& appState,
+    UIState& uiState,
     SlusFile& slus,
     WazaFile& waza,
     std::vector<MoveEntry>& moveEntriesOld,
@@ -27,67 +30,83 @@ void DrawMainWindow(
         ImGuiWindowFlags_NoTitleBar |
         ImGuiWindowFlags_AlwaysUseWindowPadding);
 
-    // Tab checkboxes
-    if (ImGui::BeginTable("Tab Checkboxes", 3))
+    // Tab checkboxes and font size input
+    ImGui::BeginGroup();
+    const float spacing{ 15.0f };
+
+    // Button "Save File"
+    if (ImGui::Button(" Save File "))
     {
-        ImGui::TableSetupColumn("", ImGuiTableColumnFlags_WidthFixed, 175.0f);
-        ImGui::TableSetupColumn("", ImGuiTableColumnFlags_WidthFixed, 100.0f);
-        ImGui::TableSetupColumn("", ImGuiTableColumnFlags_WidthFixed, 100.0f);
-        ImGui::PushStyleColor(ImGuiCol_TableHeaderBg, ImVec4(0, 0, 0, 0));
-        ImGui::PushStyleColor(ImGuiCol_HeaderHovered, ImVec4(0, 0, 0, 0));
-        ImGui::PushStyleColor(ImGuiCol_HeaderActive, ImVec4(0, 0, 0, 0));
-        ImGui::TableHeadersRow();
-        ImGui::PopStyleColor(3);
+        UpdateSlus(slus.data, moveEntriesOld,
+            slus.moveCountOld, slus.moveCapacityOld,
+            kMoveCountOffsetOld, kMoveDataOffsetOld);
 
-        ImGui::TableSetColumnIndex(0);
-
-        if (ImGui::Button(" Save File "))
+        if (slus.moveCountNew)
         {
-            UpdateSlus(slus.data, moveEntriesOld,
-                slus.moveCountOld, slus.moveCapacityOld,
-                kMoveCountOffsetOld, kMoveDataOffsetOld);
-
-            if (slus.moveCountNew)
-            {
-                UpdateSlus(slus.data, moveEntriesNew,
-                    slus.moveCountNew, slus.moveCapacityNew,
-                    kMoveCountOffsetNew, kMoveDataOffsetNew);
-            }
-
-            SaveFile(slus.filePath, slus.data);
+            UpdateSlus(slus.data, moveEntriesNew,
+                slus.moveCountNew, slus.moveCapacityNew,
+                kMoveCountOffsetNew, kMoveDataOffsetNew);
         }
 
-        ImGui::TableSetColumnIndex(1);
-        ImGui::Checkbox("Old", &appState.tabOld);
-
-        ImGui::TableSetColumnIndex(2);
-
-        if (!slus.moveCountNew)
-        {
-            ImGui::BeginDisabled();
-        }
-
-        ImGui::Checkbox("New", &appState.tabNew);
-
-        if (!slus.moveCountNew)
-        {
-            ImGui::EndDisabled();
-        }
-
-        ImGui::EndTable();
-        ImGui::Dummy(ImVec2(0.0f, 6.0f));
-        ImGui::Separator();
+        SaveFile(slus.filePath, slus.data);
     }
 
+    // Button "Settings"
+    ImGui::SameLine(0.0f, spacing);
+    if (ImGui::Button(" Settings "))
+        ImGui::OpenPopup("Settings Popup");
+
+    // Popup "Settings"
+    ImVec2 buttonPos = ImGui::GetItemRectMin();
+    ImVec2 buttonSize = ImGui::GetItemRectSize();
+    ImGui::SetNextWindowPos(ImVec2(buttonPos.x, buttonPos.y + buttonSize.y + 14.0f));
+
+    if (ImGui::BeginPopup("Settings Popup"))
+    {
+        // Input "Font Size"
+        ImGui::SetNextItemWidth(130.0f);
+        ImGui::InputInt("Font Size", &uiState.fontSize);
+        uiState.fontSize = std::clamp(uiState.fontSize, 12, 32);
+
+        if (ImGui::IsItemDeactivatedAfterEdit())
+            uiState.fontUpdate = true;
+
+        ImGui::EndPopup();
+    }
+
+    // Checkbox "Old"
+    ImGui::SameLine(0.0f, spacing);
+    ImGui::Checkbox("Old", &uiState.tabOld);
+
+    // Checkbox "New"
+    ImGui::SameLine(0.0f, spacing);
+
+    if (!slus.moveCountNew)
+    {
+        ImGui::BeginDisabled();
+    }
+
+    ImGui::Checkbox("New", &uiState.tabNew);
+
+    if (!slus.moveCountNew)
+    {
+        ImGui::EndDisabled();
+    }
+
+    ImGui::EndGroup();
+
+    ImGui::Dummy(ImVec2(0.0f, 6.0f));
+    ImGui::Separator();
+
     // Move data columns
-    int columnCount = (appState.tabOld ? 1 : 0) + (appState.tabNew ? 1 : 0);
+    int columnCount = (uiState.tabOld ? 1 : 0) + (uiState.tabNew ? 1 : 0);
 
     if (columnCount)
     {
         ImGui::Columns(columnCount, nullptr, true);
 
         // Old moves column
-        if (appState.tabOld)
+        if (uiState.tabOld)
         {
             MoveTableContext contextOld{ moveEntriesOld, slus.moveCountOld, slus.moveCapacityOld };
 
@@ -100,7 +119,7 @@ void DrawMainWindow(
         }
 
         // New moves column
-        if (appState.tabNew)
+        if (uiState.tabNew)
         {
             ImGui::NextColumn();
             MoveTableContext contextNew{ moveEntriesNew, slus.moveCountNew, slus.moveCapacityNew };

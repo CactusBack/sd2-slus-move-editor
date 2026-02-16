@@ -56,14 +56,6 @@ GLFWwindow* InitRenderer(int width, int height, const char* title)
     ImGui_ImplGlfw_InitForOpenGL(window, true);
     ImGui_ImplOpenGL3_Init("#version 330");
 
-    // Custom font
-    ImFontConfig font_config;
-    ImFont* customFont = io.Fonts->AddFontFromFileTTF("assets/font/Inconsolata-Regular.ttf", 24.0f, &font_config);
-    if (!customFont)
-    {
-        std::cerr << "Failed to load font\n";
-    }
-
     return window;
 }
 

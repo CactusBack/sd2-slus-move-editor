@@ -150,6 +150,7 @@
     <ClCompile Include="src\renderer\Renderer.cpp" />
     <ClCompile Include="src\ui\MainWindow.cpp" />
     <ClCompile Include="src\ui\MoveTable.cpp" />
+    <ClCompile Include="UI.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\data\BinaryUtils.h" />
@@ -158,7 +159,7 @@
     <ClInclude Include="src\data\SlusFile.h" />
     <ClInclude Include="src\data\WazaFile.h" />
     <ClInclude Include="src\renderer\Renderer.h" />
-    <ClInclude Include="src\ui\AppState.h" />
+    <ClInclude Include="src\ui\UI.h" />
     <ClInclude Include="src\ui\MainWindow.h" />
     <ClInclude Include="src\ui\MoveTable.h" />
   </ItemGroup>

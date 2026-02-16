@@ -6,11 +6,12 @@
 #include <algorithm>
 #include <iostream>
 
-bool LoadSlus(
+bool LoadSlus( // Returns true if new moves hack is applied
     SlusFile& slus,
     std::vector<MoveEntry>& moveEntriesOld,
     std::vector<MoveEntry>& moveEntriesNew)
 {
+
     slus.data = LoadFile(slus.filePath);
 
     if (slus.data.empty())

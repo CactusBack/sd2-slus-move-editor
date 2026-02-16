@@ -57,6 +57,9 @@
     <ClCompile Include="src\ui\MoveTable.cpp">
       <Filter>Source Files\ui</Filter>
     </ClCompile>
+    <ClCompile Include="UI.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\data\BinaryUtils.h">
@@ -77,13 +80,13 @@
     <ClInclude Include="src\renderer\Renderer.h">
       <Filter>Header Files\renderer</Filter>
     </ClInclude>
-    <ClInclude Include="src\ui\AppState.h">
-      <Filter>Header Files\ui</Filter>
-    </ClInclude>
     <ClInclude Include="src\ui\MainWindow.h">
       <Filter>Header Files\ui</Filter>
     </ClInclude>
     <ClInclude Include="src\ui\MoveTable.h">
+      <Filter>Header Files\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ui\UI.h">
       <Filter>Header Files\ui</Filter>
     </ClInclude>
   </ItemGroup>
