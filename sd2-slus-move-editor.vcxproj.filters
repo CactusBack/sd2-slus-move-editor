@@ -57,7 +57,7 @@
     <ClCompile Include="src\ui\MoveTable.cpp">
       <Filter>Source Files\ui</Filter>
     </ClCompile>
-    <ClCompile Include="UI.cpp">
+    <ClCompile Include="src\ui\UI.cpp">
       <Filter>Source Files\ui</Filter>
     </ClCompile>
   </ItemGroup>

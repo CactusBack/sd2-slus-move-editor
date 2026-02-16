@@ -150,7 +150,7 @@
     <ClCompile Include="src\renderer\Renderer.cpp" />
     <ClCompile Include="src\ui\MainWindow.cpp" />
     <ClCompile Include="src\ui\MoveTable.cpp" />
-    <ClCompile Include="UI.cpp" />
+    <ClCompile Include="src\ui\UI.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\data\BinaryUtils.h" />
