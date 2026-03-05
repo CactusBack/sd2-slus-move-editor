@@ -91,8 +91,8 @@ void MoveEntry::ApplyHexEdit()
 void MoveEntry::SetId(uint16_t newId)        { id = newId; EncodeHex(); }
 void MoveEntry::SetType(uint8_t newType)     { type = newType; EncodeHex(); }
 void MoveEntry::SetCategory(uint8_t newCat)  { category = newCat; EncodeHex(); }
-void MoveEntry::SetImpact(uint8_t newImpact) { impact = newImpact; EncodeHex(); }
-void MoveEntry::SetHead(uint8_t newHead)     { head = newHead; EncodeHex(); }
-void MoveEntry::SetTorso(uint8_t newTorso)   { torso = newTorso; EncodeHex(); }
-void MoveEntry::SetArms(uint8_t newArms)     { arms = newArms; EncodeHex(); }
-void MoveEntry::SetLegs(uint8_t newLegs)     { legs = newLegs; EncodeHex(); }
+void MoveEntry::SetImpact(uint8_t newImpact) { impact = std::clamp<uint8_t>(newImpact, 0, kMaxImpact); EncodeHex(); }
+void MoveEntry::SetHead(uint8_t newHead)     { head = std::clamp<uint8_t>(newHead, 0, kMaxLimbDamage); EncodeHex(); }
+void MoveEntry::SetTorso(uint8_t newTorso)   { torso = std::clamp<uint8_t>(newTorso, 0, kMaxLimbDamage); EncodeHex(); }
+void MoveEntry::SetArms(uint8_t newArms)     { arms = std::clamp<uint8_t>(newArms, 0, kMaxLimbDamage); EncodeHex(); }
+void MoveEntry::SetLegs(uint8_t newLegs)     { legs = std::clamp<uint8_t>(newLegs, 0, kMaxLimbDamage); EncodeHex(); }
