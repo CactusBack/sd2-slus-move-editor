@@ -13,6 +13,8 @@ constexpr size_t kMoveDataOffsetOld{ 0x773F4 };
 constexpr size_t kMoveDataOffsetNew{ 0x7CBC0 };
 constexpr size_t kNewMovesHackOffset{ 0x41C14 };
 constexpr uint16_t kNewMovesHackValue{ 0x4B0C };
+constexpr uint8_t kMaxImpact{ 0x7F };
+constexpr uint8_t kMaxLimbDamage{ 0x3F };
 
 static const std::array<uint8_t, kMoveEntryLength> kMoveTablePadding =
 { 
