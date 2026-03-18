@@ -4,6 +4,7 @@
 #include "ui/MoveTable.h"
 
 #include <imgui.h>
+#include <imgui_stdlib.h>
 
 #include <algorithm>
 
@@ -93,6 +94,18 @@ void DrawMainWindow(
         ImGui::EndDisabled();
     }
 
+    // Input "Move Filter"
+    ImGui::SameLine(0.0f, spacing);
+    float filterWidth = 500.0f;
+    float availableWidth = ImGui::GetContentRegionAvail().x;
+    float filterPosX = ImGui::GetCursorPosX() + availableWidth - filterWidth;
+    if (filterPosX > ImGui::GetCursorPosX())
+    {
+        ImGui::SetCursorPosX(filterPosX);
+    }
+    ImGui::SetNextItemWidth(filterWidth);
+    ImGui::InputTextWithHint("##Move Filter", "Filter moves...", &uiState.moveFilterQuery);
+
     ImGui::EndGroup();
 
     ImGui::Dummy(ImVec2(0.0f, 6.0f));
@@ -108,7 +121,11 @@ void DrawMainWindow(
         // Old moves column
         if (uiState.tabOld)
         {
-            MoveTableContext contextOld{ moveEntriesOld, slus.moveCountOld, slus.moveCapacityOld };
+            MoveTableContext contextOld{ 
+                moveEntriesOld,
+                slus.moveCountOld,
+                slus.moveCapacityOld,
+                uiState.moveFilterQuery };
 
             ImGui::Spacing();
             ImGui::Text("Move count: %d/%d", slus.moveCountOld, slus.moveCapacityOld);
@@ -122,7 +139,11 @@ void DrawMainWindow(
         if (uiState.tabNew)
         {
             ImGui::NextColumn();
-            MoveTableContext contextNew{ moveEntriesNew, slus.moveCountNew, slus.moveCapacityNew };
+            MoveTableContext contextNew{ 
+                moveEntriesNew, 
+                slus.moveCountNew, 
+                slus.moveCapacityNew,
+                uiState.moveFilterQuery };
 
             ImGui::Spacing();
             ImGui::Text("Move count: %d/%d", slus.moveCountNew, slus.moveCapacityNew);

@@ -18,7 +18,6 @@ struct MoveEntry
     uint8_t type{}, category{}, impact{}, head{}, torso{}, arms{}, legs{}, total{};
 
     // UI-only
-    std::array<char, kMoveNameLength> name{};
     std::array<char, kMoveEntryLength * 3> hexEditBuffer{};
 
     MoveEntry();

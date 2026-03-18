@@ -2,6 +2,8 @@
 
 #pragma once
 
+#include <string>
+
 struct UIState
 {
     bool tabOld = true;
@@ -9,6 +11,8 @@ struct UIState
 
     int fontSize = 24;
     bool fontUpdate = true;
+
+    std::string moveFilterQuery;
 };
 
 void InitUI(UIState& uiState);

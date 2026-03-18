@@ -62,7 +62,6 @@ std::vector<MoveEntry> ParseSlus(
 
         std::copy_n(slusData.begin() + moveDataOffset, kMoveEntryLength, moveEntries[i].hex.begin());
         moveEntries[i].DecodeHex();
-        moveEntries[i].name.fill(0);
     }
 
     return moveEntries;
